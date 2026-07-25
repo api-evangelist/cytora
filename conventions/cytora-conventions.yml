@@ -1,0 +1,131 @@
+generated: '2026-07-25'
+method: derived
+source: >-
+  Risk Console client bundles at https://uwp.cytora.com/js/*.js,
+  https://auth.cytora.com/.well-known/openid-configuration
+note: >-
+  Cytora publishes no OpenAPI and its documentation host is password-protected,
+  so these conventions are derived from the only public technical evidence that
+  exists: the identity provider's discovery document and the JavaScript bundles
+  that Cytora's own Risk Console web application serves anonymously. Everything
+  below carries an explicit confidence level. Nothing here is a Cytora claim —
+  it is an observation, and it is not a substitute for the gated documentation.
+authentication:
+  style: OAuth 2.0 bearer token (JWT, RS256) issued by Auth0
+  header: 'Authorization: Bearer <token>'
+  machine_to_machine: client_credentials grant, audience provisioned per contract
+  interactive: authorization_code + PKCE (S256) via auth0-spa-js
+  self_serve: false
+  confidence: high
+  detail: authentication/cytora-authentication.yml
+versioning:
+  style: uri-path
+  current: v2
+  observed: [/v1 (session, oidc, saml), /v2 (platform resources)]
+  confidence: medium
+idempotency:
+  supported: unknown
+  header: null
+  evidence: no Idempotency-Key header or equivalent appears anywhere in the published client bundles
+  confidence: low
+  note: >-
+    Recorded as unknown, not as unsupported — the gated documentation could
+    define one. No Idempotency pointer is wired in apis.yml because no
+    idempotency contract is publicly demonstrable.
+pagination:
+  style: unknown
+  evidence: no unambiguous page/limit/cursor query construction could be attributed to the Cytora API
+    surface in the minified client
+  confidence: low
+request_tracing:
+  header: X-Request-Id
+  evidence: the header appears in the Risk Console client bundles
+  confidence: medium
+error_envelope:
+  media_type: unknown
+  rfc9457: unknown
+  evidence: one application/problem+json string appears in the client bundles; it could originate from a
+    vendored library. No anonymous API response could be captured to confirm the envelope.
+  confidence: low
+rate_limiting:
+  signalling: unknown
+  evidence: no rate-limit headers or plan documentation are published anonymously
+media_types:
+  request: application/json
+  response: application/json
+  file_upload: presigned S3 POST/PUT (the client requests generate-presigned-post / generate-presigned-url)
+  confidence: medium
+resource_surface:
+  note: >-
+    Path shapes observed in the published Risk Console client. These are the
+    console's backend surface, not a documented partner API contract, and no
+    HTTP methods, parameters or schemas can be responsibly inferred from
+    minified JavaScript. Recorded for discovery only — deliberately NOT
+    converted into an OpenAPI, which would be fabrication.
+  confidence: medium
+  paths:
+  - /v1/session/login
+  - /v1/session/login/token
+  - /v1/session/logout
+  - /v1/session/info
+  - /v1/session/isactive
+  - /v1/oidc/login
+  - /v1/saml/login
+  - /v2/configs
+  - /v2/communications
+  - /v2/communications/{id}
+  - /v2/templates
+  - /v2/templates/{id}
+  - /v2/transactions
+  - /v2/transactions/{id}
+  - /v2/transactions/assign/{id}
+  - /v2/transactions/unassign
+  - /v2/transaction-configs
+  - /v2/transaction-configs/{id}
+  - /v2/requests/jobs/counters
+  - /v2/schemas/jobs/counters
+  - /v2/schemas/jobs/{id}/output
+  - /v2/schemas/jobs/{id}/file-classifications
+  - /v2/workspaces/{id}
+  - /v2/workspaces/{id}/users
+  - /v2/workspaces/{id}/resources
+  - /v2/workspaces/{id}/resources/{id}
+  - /v2/workspaces/{id}/inboxes
+  - /v2/workspaces/{id}/inboxes/{id}
+  - /v2/workspaces/{id}/inboxes/{id}/users
+  - /v2/workspaces/{id}/inboxes/{id}/records
+  - /v2/workspaces/{id}/inboxes/{id}/records/{id}
+  - /v2/workspaces/{id}/inboxes/{id}/records/{id}/actions
+  - /v2/workspaces/{id}/inboxes/{id}/records/{id}/fields
+  - /v2/workspaces/{id}/inboxes/{id}/records/{id}/hitl_fields
+  - /v2/workspaces/{id}/inboxes/{id}/records/{id}/documents
+  - /v2/workspaces/{id}/inboxes/{id}/records/{id}/documents_search
+  - /v2/workspaces/{id}/inboxes/{id}/records/{id}/generated_views
+  - /v2/workspaces/{id}/inboxes_search
+  - /v2/workspaces/{id}/inboxes_records
+  - /v2/workspaces/{id}/inboxes_records_search
+  - /v2/workspaces/{id}/inbox_groups/{id}/records
+  - /v2/workspaces/{id}/declaration_extractors
+  - /v2/workspaces/{id}/declaration_extractors/{id}
+  - /v2/workspaces/{id}/declaration_extractors/{id}/questions
+  - /v2/workspaces/{id}/inference_extractors
+  - /v2/workspaces/{id}/inference_extractors/{id}
+  - /v2/workspaces/{id}/inference_extractors/{id}/examples
+  - /v2/workspaces/{id}/config_versions
+  - /v2/workspaces/{id}/config_versions/{id}
+  - /v2/workspaces/{id}/deployments
+  - /v2/workspaces/{id}/deployments/active
+  - /v2/workspaces/{id}/analyses/dry-run
+  - /v2/workspaces/{id}/components/ports
+  - /v2/workspaces/{id}/consume-template
+  - /v2/workspaces/{id}/template-runs
+  - /v2/workspaces/{id}/template-runs/{id}
+  - /v2/workspaces/{id}/start-workflow
+  - /v2/workspaces/{id}/generate-presigned-post
+  - /v2/workspaces/{id}/generate-presigned-url
+cross_links:
+  authentication: authentication/cytora-authentication.yml
+  scopes: scopes/cytora-scopes.yml
+  lifecycle: lifecycle/cytora-lifecycle.yml
+  conformance: conformance/cytora-conformance.yml
+  well_known: well-known/cytora-well-known.yml

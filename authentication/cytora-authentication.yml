@@ -1,0 +1,81 @@
+generated: '2026-07-25'
+method: searched
+source: https://auth.cytora.com/.well-known/openid-configuration
+docs: https://auth.cytora.com/.well-known/openid-configuration
+note: >-
+  Cytora publishes no OpenAPI, so this profile is read directly from the live
+  OpenID Connect discovery document of Cytora's identity provider rather than
+  derived from securitySchemes. Partner and customer integrations against
+  api.cytora.com are provisioned per contract; client credentials cannot be
+  obtained self-serve.
+summary:
+  types: [oauth2, openIdConnect]
+  api_key_in: []
+  oauth2_flows: [clientCredentials, authorizationCode, deviceCode, refreshToken, tokenExchange, jwtBearer]
+  bearer_token: JWT (RS256)
+  self_serve: false
+schemes:
+- name: CytoraOAuth2
+  type: oauth2
+  provider: Auth0 (EU tenant cytora-prod.eu.auth0.com)
+  issuer: https://auth.cytora.com/
+  sources: [well-known/cytora-openid-configuration.json]
+  endpoints:
+    authorization: https://auth.cytora.com/authorize
+    token: https://auth.cytora.com/oauth/token
+    device_authorization: https://auth.cytora.com/oauth/device/code
+    userinfo: https://auth.cytora.com/userinfo
+    revocation: https://auth.cytora.com/oauth/revoke
+    jwks: https://auth.cytora.com/.well-known/jwks.json
+    registration: https://auth.cytora.com/oidc/register
+    backchannel_authentication: https://auth.cytora.com/bc-authorize
+    mfa_challenge: https://auth.cytora.com/mfa/challenge
+  flows:
+  - flow: clientCredentials
+    grant: client_credentials
+    use: machine-to-machine partner and customer integrations
+  - flow: authorizationCode
+    grant: authorization_code
+    pkce: [S256, plain]
+    use: interactive Risk Console sign-in (https://uwp.cytora.com)
+  - flow: refreshToken
+    grant: refresh_token
+  - flow: deviceCode
+    grant: urn:ietf:params:oauth:grant-type:device_code
+  - flow: tokenExchange
+    grant: urn:ietf:params:oauth:grant-type:token-exchange
+  - flow: jwtBearer
+    grant: urn:ietf:params:oauth:grant-type:jwt-bearer
+  - flow: password
+    grant: password
+    note: legacy ROPC grant advertised by the tenant
+  - flow: implicit
+    grant: implicit
+    note: legacy grant advertised by the tenant
+  token_endpoint_auth_methods: [client_secret_basic, client_secret_post, private_key_jwt, none]
+  token_endpoint_auth_signing_algs: [RS256, RS384, PS256]
+  id_token_signing_algs: [HS256, RS256, PS256]
+  dpop_signing_algs: [ES256]
+  response_types: [code, token, id_token, code token, code id_token, token id_token, code token id_token]
+  response_modes: [query, fragment, form_post]
+  subject_types: [public]
+  claims: [aud, auth_time, created_at, email, email_verified, exp, family_name,
+    given_name, iat, identities, iss, name, nickname, phone_number, picture, sub]
+  request_parameter_supported: false
+  request_uri_parameter_supported: false
+  backchannel_logout_supported: true
+  authorization_grant_profiles: [urn:ietf:params:oauth:grant-profile:id-jag]
+- name: CytoraOIDC
+  type: openIdConnect
+  openIdConnectUrl: https://auth.cytora.com/.well-known/openid-configuration
+  sources: [well-known/cytora-openid-configuration.json]
+client_evidence:
+  source: https://uwp.cytora.com (Risk Console SPA JavaScript bundles)
+  observed:
+  - auth0-spa-js is the browser authentication library
+  - requests carry an Authorization header (bearer)
+  - no API key header or query parameter observed anywhere in the client
+gaps:
+- No public authentication guide; the ReadMe documentation host is password-protected.
+- No self-serve credential issuance; no developer signup exists.
+- No product/resource scopes published anonymously (see scopes/cytora-scopes.yml).

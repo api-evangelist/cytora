@@ -1,0 +1,92 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  https://auth.cytora.com/.well-known/openid-configuration,
+  https://trust.cytora.com/, published ISO certificate PDFs on cytora.com
+note: >-
+  Cytora publishes no OpenAPI, so protocol conformance is asserted only where a
+  live anonymous surface or a published certificate proves it. Everything that
+  would need the API contract to verify is recorded as unknown, not as false.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: RFC 6749 authorization server live at https://auth.cytora.com/ (authorize + token endpoints)
+- id: oidc-core
+  conforms: true
+  evidence: OpenID Connect Discovery 1.0 document returns 200 with issuer, jwks_uri, id_token signing algs
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server returns 200 (identical to the OIDC discovery document)
+- id: rfc7517-jwks
+  conforms: true
+  evidence: /.well-known/jwks.json returns 200 with two RSA RS256 signing keys
+- id: rfc7636-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported = [S256, plain]
+- id: rfc8628-device-authorization-grant
+  conforms: true
+  evidence: device_authorization_endpoint advertised
+- id: rfc8693-token-exchange
+  conforms: true
+  evidence: urn:ietf:params:oauth:grant-type:token-exchange in grant_types_supported
+- id: rfc7523-jwt-bearer
+  conforms: true
+  evidence: urn:ietf:params:oauth:grant-type:jwt-bearer in grant_types_supported
+- id: rfc9449-dpop
+  conforms: true
+  evidence: dpop_signing_alg_values_supported = [ES256]
+- id: private-key-jwt-client-auth
+  conforms: true
+  evidence: private_key_jwt in token_endpoint_auth_methods_supported
+- id: oauth-identity-assertion-authorization-grant
+  conforms: true
+  evidence: authorization_grant_profiles_supported = [urn:ietf:params:oauth:grant-profile:id-jag]
+- id: rfc9126-pushed-authorization-requests
+  conforms: false
+  evidence: no pushed_authorization_request_endpoint in the discovery document
+- id: fapi
+  conforms: false
+  evidence: no FAPI profile claimed; ROPC and implicit grants are still advertised by the tenant
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on cytora.com and auth.cytora.com
+- id: rfc8594-sunset-header
+  conforms: unknown
+  evidence: no public deprecation policy and no reachable API responses to inspect
+- id: rfc9457-problem-details
+  conforms: unknown
+  evidence: a single application/problem+json string appears in the Risk Console client bundle; no reachable
+    API response could be inspected to confirm the error envelope
+- id: acord
+  conforms: false
+  evidence: zero references to ACORD, AL3, NGDS or IVANS across every public Cytora page; Cytora ships its
+    own per-line-of-business schemas instead (see review.yml acordPosture)
+- id: iso-27001
+  conforms: true
+  certified: true
+  certificate: ISO/IEC 27001:2022, certificate no 15808576614-1 rev 002, Consilium Labs (ANAB accredited)
+  issued: '2023-04-04'
+  updated: '2024-05-16'
+  expires: '2026-04-03'
+  evidence: https://cdn.prod.website-files.com/64d50af408255ae14882394e/664723b306b51a05a7c02e69_Cytora%20ISO%20Certificate-%2027001-2022_signed.pdf
+  note: the published certificate's stated expiration date has passed; no renewed certificate is published yet
+- id: iso-42001
+  conforms: true
+  certified: true
+  certificate: ISO/IEC 42001:2023 AI management system, certificate no 15808576614 rev 001, Consilium Labs
+    (IAS accredited), organization role "AI Provider"
+  issued: '2025-07-23'
+  next_audit: '2026-07-14'
+  expires: '2028-07-22'
+  evidence: https://cdn.prod.website-files.com/64d50af408255ae14882394e/689f0b197e87e083514d901d_Certificate%20Cytora%20IAS%20ISO%2042001-23%20v2.0%20-%20Revised_signed.pdf
+- id: soc2
+  conforms: unknown
+  evidence: not named on any anonymously readable Cytora page; the Vanta trust center gates its document list
+- id: gdpr
+  conforms: true
+  evidence: UK/EU data protection commitments published at https://cytora.com/privacy-policy with a
+    dataprotection@cytora.com contact
+compliance_program:
+  published: true
+  trust_center: https://trust.cytora.com/
+  certifications: [ISO/IEC 27001:2022, ISO/IEC 42001:2023]

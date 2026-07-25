@@ -1,0 +1,80 @@
+generated: '2026-07-25'
+method: searched
+source: https://auth.cytora.com/.well-known/openid-configuration
+docs: null
+note: >-
+  Every scope below is a stock OpenID Connect / Auth0 identity scope advertised
+  by the tenant's discovery document. Cytora publishes NO product- or
+  resource-level scopes anonymously (nothing of the form risk:read,
+  submission:write, claim:create). Machine-to-machine access to api.cytora.com
+  uses the client_credentials grant against an API audience that is provisioned
+  per customer contract and is not disclosed publicly, so the real authorization
+  surface cannot be enumerated without provisioned credentials.
+schemes:
+- name: CytoraOAuth2
+  source: well-known/cytora-openid-configuration.json
+  issuer: https://auth.cytora.com/
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.cytora.com/oauth/token
+  - flow: authorizationCode
+    authorizationUrl: https://auth.cytora.com/authorize
+    tokenUrl: https://auth.cytora.com/oauth/token
+scopes:
+- scope: openid
+  description: Request an ID token (OpenID Connect)
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+- scope: profile
+  description: Basic profile claims
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+- scope: offline_access
+  description: Issue a refresh token
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+- scope: name
+  description: Full name claim
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+- scope: given_name
+  description: Given name claim
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+- scope: family_name
+  description: Family name claim
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+- scope: nickname
+  description: Nickname claim
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+- scope: email
+  description: Email address claim
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+- scope: email_verified
+  description: Email verification state claim
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+- scope: picture
+  description: Profile picture claim
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+- scope: created_at
+  description: Account creation timestamp claim
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+- scope: identities
+  description: Linked identity provider records claim
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+- scope: phone
+  description: Phone number claim
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+- scope: address
+  description: Address claim
+  flows: [authorizationCode]
+  sources: [well-known/cytora-openid-configuration.json]
+product_scopes_published: false

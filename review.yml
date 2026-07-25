@@ -340,6 +340,60 @@ findings:
     market-normal outcome, not an outlier — and it is notable precisely because
     Cytora is one of the most genuinely API-centric products in UK commercial
     insurance while publishing none of it.
+  enrichmentRound2:
+    date: '2026-07-25'
+    method: search + probe
+    newFindings:
+    - host: https://uwp.cytora.com
+      status: 200
+      finding: >-
+        NEW HOST, not found in round 1. Cytora's Risk Console single-page
+        application, served from S3 behind CloudFront with a strict CSP and
+        HSTS preload. Anonymously reachable (it is the login surface), and its
+        published JavaScript bundles reveal the console's own backend resource
+        surface — /v1/session|oidc|saml for authentication and a /v2 platform
+        surface (workspaces, inboxes, records, documents, fields, hitl_fields,
+        declaration_extractors, inference_extractors, config_versions,
+        deployments, transactions, templates, communications, schemas/jobs).
+        Captured as observed paths in conventions/cytora-conventions.yml.
+        Deliberately NOT converted into an OpenAPI — minified client code
+        carries no methods, parameters or schemas, and synthesising one would
+        be fabrication.
+    - host: https://status.cytora.com/api/v2/summary.json
+      status: 200
+      finding: >-
+        The status page is an Atlassian Statuspage (page id dm7rsmwblhqx) with a
+        public JSON API and five named service components — Risk Console, Risk
+        Stream Service, Digitize Service, Files Service, Notification Service.
+        This is the clearest public description of Cytora's service decomposition.
+    - source: cytora.com footer "ISO Certificate"
+      status: 200
+      finding: >-
+        Three signed certificate PDFs are published on the Cytora website CDN and
+        were read directly: ISO/IEC 27001:2013 (superseded), ISO/IEC 27001:2022
+        (cert 15808576614-1 rev 002, Consilium Labs / ANAB, issued 2023-04-04,
+        expired 2026-04-03 with no published renewal) and ISO/IEC 42001:2023
+        (cert 15808576614 rev 001, Consilium Labs / IAS, issued 2025-07-23,
+        expires 2028-07-22, organization role "AI Provider"). The 42001 AI
+        management-system certificate is the notable one for an insurance
+        document-AI vendor.
+    - source: https://auth.cytora.com/.well-known/openid-configuration
+      status: 200
+      finding: >-
+        Re-fetched and saved verbatim, along with the RFC 8414 metadata document
+        (byte-identical) and JWKS (two RSA RS256 signing keys). Beyond round 1's
+        grant list, the tenant advertises DPoP (ES256), private_key_jwt client
+        authentication, backchannel logout, and the identity-assertion
+        authorization grant profile (urn:ietf:params:oauth:grant-profile:id-jag)
+        — but no pushed authorization request endpoint, and it still advertises
+        the legacy ROPC and implicit grants.
+    confirmedAbsent:
+    - No /llms.txt anywhere (docs.cytora.com/llms.txt is the ReadMe password wall).
+    - No /.well-known/security.txt on any host; no bug bounty or responsible-disclosure page.
+    - No npm, PyPI or other registry package under a Cytora name; no SDK, no CLI.
+    - No MCP server, no GraphQL endpoint, no .proto, no AsyncAPI, no webhook catalog.
+    - No Postman collection, no changelog, no roadmap, no public pricing, no terms-of-service page.
+    - GitHub org re-checked: 39 public repos, newest meaningful push 2023, all legacy forks, zero API artifacts.
   conclusion: |
     STUB — identity captured, zero public APIs listed. Cytora runs real APIs behind
     a real gateway with real OAuth 2.0 infrastructure, and documents them properly

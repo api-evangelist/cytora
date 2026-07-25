@@ -44,8 +44,67 @@ tags:
 created: '2026-07-25'
 modified: '2026-07-25'
 specificationVersion: '0.19'
-apis: []
+apis:
+- name: Cytora Platform API
+  description: >-
+    Cytora's production REST API for digital risk processing — the "preferred
+    method" of submission intake described in its own Risk Flow Academy. The
+    gateway is real (api.cytora.com resolves via gateway.cytora-prod.com to a
+    Google Cloud load balancer) and the API reference is real (a ReadMe site at
+    docs.cytora.com), but both are closed: the documentation host 302-redirects
+    every path to a password wall and the gateway resets the TLS handshake for
+    anonymous clients. No OpenAPI, SDK, Postman collection or webhook catalog is
+    published. Access is provisioned per contract via OAuth 2.0 client
+    credentials issued by Cytora's Auth0 tenant. The resource surface observed in
+    Cytora's own published Risk Console client (workspaces, inboxes, records,
+    documents, extractors, transactions, deployments) is captured in
+    conventions/cytora-conventions.yml for discovery only.
+  humanURL: https://docs.cytora.com/
+  baseURL: https://api.cytora.com
+  tags:
+  - Insurance
+  - Underwriting
+  - Claims
+  - Submission Intake
+  - Document AI
+  properties:
+  - type: Documentation
+    url: https://docs.cytora.com/
+  - type: Authentication
+    url: authentication/cytora-authentication.yml
+  - type: Conventions
+    url: conventions/cytora-conventions.yml
+  - type: Lifecycle
+    url: lifecycle/cytora-lifecycle.yml
+- name: Cytora Identity (Auth0 OIDC)
+  description: >-
+    The OAuth 2.0 / OpenID Connect authorization server that fronts every Cytora
+    integration, running on an Auth0 EU tenant (cytora-prod.eu.auth0.com). This
+    is the only Cytora surface that answers anonymously with real
+    machine-readable data: OpenID Connect Discovery, RFC 8414 authorization
+    server metadata and JWKS all return 200. It advertises client_credentials for
+    machine-to-machine partner integrations, authorization_code with PKCE (S256)
+    for the Risk Console, token exchange, JWT bearer and device code grants,
+    private_key_jwt client authentication and DPoP (ES256). Only stock OIDC
+    identity scopes are advertised; product scopes are not published.
+  humanURL: https://auth.cytora.com/.well-known/openid-configuration
+  baseURL: https://auth.cytora.com
+  tags:
+  - OAuth
+  - OpenID Connect
+  - Identity
+  properties:
+  - type: Authentication
+    url: authentication/cytora-authentication.yml
+  - type: OAuthScopes
+    url: scopes/cytora-scopes.yml
+  - type: WellKnown
+    url: well-known/cytora-well-known.yml
+  - type: OpenIDConnect
+    url: https://auth.cytora.com/.well-known/openid-configuration
 common:
+- type: DomainSecurity
+  url: security/cytora-domain-security.yml
 - type: Website
   url: https://cytora.com/
 - type: Documentation
@@ -54,18 +113,46 @@ common:
   url: https://cytora.com/risk-flow-center/blog
 - type: StatusPage
   url: https://status.cytora.com/
+- type: Lifecycle
+  url: lifecycle/cytora-lifecycle.yml
 - type: TrustCenter
   url: https://trust.cytora.com/
+- type: TrustCenter
+  url: security/cytora-trust-center.yml
+- type: Compliance
+  url: https://trust.cytora.com/
+- type: Conformance
+  url: conformance/cytora-conformance.yml
 - type: Authentication
   url: https://auth.cytora.com/.well-known/openid-configuration
+- type: Authentication
+  url: authentication/cytora-authentication.yml
+- type: OAuthScopes
+  url: scopes/cytora-scopes.yml
+- type: WellKnown
+  url: well-known/cytora-well-known.yml
+- type: Conventions
+  url: conventions/cytora-conventions.yml
+- type: LLMsTxt
+  url: llms/cytora-llms.txt
+- type: Login
+  url: https://uwp.cytora.com
 - type: GitHubOrganization
   url: https://github.com/cytora
 - type: LinkedIn
   url: https://www.linkedin.com/company/cytora
+- type: Twitter
+  url: https://twitter.com/cytora
 - type: PrivacyPolicy
   url: https://cytora.com/privacy-policy
+- type: CookiePolicy
+  url: https://cytora.com/cookie-policy
 - type: Support
   url: https://cytora.com/about-us/contact-us
+- type: Customers
+  url: https://cytora.com/customers
+- type: Partners
+  url: https://cytora.com/digital-risk-processing/data-ecosystem
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

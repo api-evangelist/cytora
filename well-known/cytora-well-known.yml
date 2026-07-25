@@ -1,0 +1,75 @@
+generated: '2026-07-25'
+method: searched
+source: live probes of every Cytora host found in apis.yml and review.yml
+summary: >-
+  Only auth.cytora.com (an Auth0 EU tenant) answers anonymously with real
+  machine-readable discovery documents. The marketing site (cytora.com) returns
+  404 for every /.well-known/ path, the documentation host (docs.cytora.com)
+  302-redirects every path to a ReadMe password wall — including
+  /.well-known/security.txt and /llms.txt, which return an HTML password page,
+  not a real document — and the API gateway (api.cytora.com) resets the TLS
+  handshake for anonymous clients so nothing can be probed there at all.
+hosts:
+- host: https://auth.cytora.com
+  role: identity provider (Auth0 EU tenant cytora-prod.eu.auth0.com)
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: cytora-openid-configuration.json
+    spec: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: cytora-oauth-authorization-server.json
+    spec: RFC 8414
+    note: byte-identical to the openid-configuration document
+  - path: /.well-known/jwks.json
+    status: 200
+    file: cytora-jwks.json
+    spec: RFC 7517
+    note: two RSA RS256 signing keys
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://cytora.com
+  role: marketing website
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /llms.txt
+    status: 404
+  - path: /robots.txt
+    status: 200
+    note: not saved; allows crawling of the marketing site
+  - path: /sitemap.xml
+    status: 200
+    note: 560 URLs, all marketing/editorial; no developer or spec paths
+- host: https://docs.cytora.com
+  role: API reference (ReadMe, password-protected)
+  documents:
+  - path: /.well-known/security.txt
+    status: 302
+    result: redirects to /password — response body is the ReadMe password wall, not a security.txt
+  - path: /llms.txt
+    status: 302
+    result: redirects to /password — no real llms.txt
+- host: https://api.cytora.com
+  role: production API gateway (CNAME gateway.cytora-prod.com)
+  documents:
+  - path: /.well-known/*
+    status: '000'
+    result: TLS handshake reset by peer for anonymous clients; nothing probeable
+- host: https://uwp.cytora.com
+  role: Risk Console single-page application (S3 + CloudFront)
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    result: SPA fallback — returns index.html for every path, not a discovery document

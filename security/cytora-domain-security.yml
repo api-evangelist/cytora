@@ -1,0 +1,54 @@
+generated: '2026-07-25'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: cytora.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 29 04:47:24 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: docs.cytora.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 12 04:56:19 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: api.cytora.com
+  https: false
+  note: TCP 443 accepts but the TLS handshake is reset by peer for anonymous clients
+- host: auth.cytora.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 20 23:30:52 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+- host: uwp.cytora.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Jan 13 23:59:59 2027 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+  hsts_preload: true
+- host: status.cytora.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 31 06:03:07 2026 GMT
+  hsts: true
+  hsts_max_age: 259200
+- host: trust.cytora.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  9 20:45:58 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+domains:
+- domain: cytora.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none

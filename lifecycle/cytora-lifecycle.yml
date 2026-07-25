@@ -1,0 +1,56 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  https://status.cytora.com/api/v2/summary.json, Risk Console client bundles at
+  https://uwp.cytora.com, https://cytora.com sitemap
+versioning:
+  scheme: uri-path
+  current: v2
+  docs: null
+  evidence: >-
+    Cytora's own Risk Console client calls a /v2/... resource surface (workspaces, inboxes, transactions,
+    schemas, templates, communications) and a /v1/session|oidc|saml authentication surface. The version
+    scheme is observable from the published client bundles; no versioning policy is documented publicly
+    because the documentation host is password-protected.
+  confidence: medium
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+  published: false
+  note: no deprecation or sunset policy is published anonymously
+sla:
+  url: null
+  uptime_target: null
+  published: false
+status_page:
+  url: https://status.cytora.com/
+  platform: Atlassian Statuspage
+  page_id: dm7rsmwblhqx
+  time_zone: Europe/London
+  api: https://status.cytora.com/api/v2/summary.json
+  history_feed: https://status.cytora.com/history.rss
+  components:
+  - name: Risk Console
+    description: Risk Console is the graphical user interface for all Cytora services including Digitize,
+      File and Risk Stream.
+  - name: Risk Stream Service
+    description: Risk Stream is a workflow engine that handles ingestion, extraction, inference, enrichment
+      and output orchestration.
+  - name: Digitize Service
+    description: Digitize is Cytora's schema-driven digitization engine, designed to classify files and
+      extract and infer key data fields.
+  - name: Files Service
+    description: Files is Cytora's document processing engine.
+  - name: Notification Service
+    description: Notifications is Cytora's notifications system.
+  observed_at: '2026-07-25'
+  observed_state: all components operational, no open incidents
+changelog:
+  published: false
+  note: no dated product changelog or release-notes page exists on any anonymously reachable Cytora host
+deprecated_operations: []
+corporate_lifecycle:
+  founded: 2012
+  origin: University of Cambridge spinout
+  acquired_by: Applied Systems
+  acquisition_announced: '2025-09-09'

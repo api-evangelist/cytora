@@ -1,0 +1,62 @@
+generated: '2026-07-25'
+method: searched
+probe: true
+url: https://trust.cytora.com/
+platform: Vanta Trust Center
+note: >-
+  trust.cytora.com returns HTTP 200 but renders entirely client-side from Vanta,
+  so the automated keyword probe (0-working/probe-security-programs.py) recorded
+  no hit. The trust center is real — confirmed by the page metadata and the Vanta
+  asset host — and its certifications are independently verifiable from the
+  signed certificate PDFs Cytora publishes on its own website footer.
+certifications:
+- name: ISO/IEC 27001:2022
+  scope: >-
+    Cytora offers a configurable platform enabling commercial insurers and brokers to process risks more
+    efficiently and accurately, hosted on a cloud-based infrastructure ensuring the security of all
+    processes, activities, systems, and information covered by its ISMS.
+  certificate_no: 15808576614-1
+  revision: '002'
+  certification_body: Consilium Labs (ANAB accredited)
+  statement_of_applicability: version 1.1, 2024-04-16
+  issued: '2023-04-04'
+  updated: '2024-05-16'
+  expires: '2026-04-03'
+  status: published certificate expiration date has passed; renewal not published
+  url: https://cdn.prod.website-files.com/64d50af408255ae14882394e/664723b306b51a05a7c02e69_Cytora%20ISO%20Certificate-%2027001-2022_signed.pdf
+- name: ISO/IEC 27001:2013
+  certification_body: Consilium Labs
+  status: superseded by the 2022 certificate
+  url: https://cdn.prod.website-files.com/64d50af408255ae14882394e/64dcafebffef202bc7af9186_Cytora_ltd_ISO_27001-2013_signed%20(1).pdf
+- name: ISO/IEC 42001:2023
+  scope: >-
+    Cytora provides a secure, configurable, cloud-hosted platform used by commercial insurers, reinsurers,
+    and brokers to process risks and claims more efficiently, leveraging artificial intelligence for accurate
+    data extraction. All AI-related processes, activities, and systems are governed and protected by its
+    Artificial Intelligence Management System.
+  organization_role: AI Provider
+  certificate_no: '15808576614'
+  revision: '001'
+  certification_body: Consilium Labs (IAS accredited, MSCB-352)
+  statement_of_applicability: version 02, 2025-06-30
+  last_audit: '2025-07-15'
+  issued: '2025-07-23'
+  next_audit: '2026-07-14'
+  expires: '2028-07-22'
+  status: current
+  url: https://cdn.prod.website-files.com/64d50af408255ae14882394e/689f0b197e87e083514d901d_Certificate%20Cytora%20IAS%20ISO%2042001-23%20v2.0%20-%20Revised_signed.pdf
+data_protection:
+  privacy_policy: https://cytora.com/privacy-policy
+  cookie_policy: https://cytora.com/cookie-policy
+  contact: dataprotection@cytora.com
+evidence:
+- source: https://trust.cytora.com/
+  status: 200
+  kind: trust center (Vanta), client-side rendered
+  keywords: [trust center, security, compliance]
+- source: https://cytora.com/ (footer "ISO Certificate" link)
+  status: 200
+  kind: signed certificate PDFs, read directly
+gaps:
+- No SOC 2 report referenced on any anonymously readable surface.
+- No penetration-test summary, subprocessor list or uptime SLA published anonymously.
