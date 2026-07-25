@@ -1,0 +1,348 @@
+aid: cytora
+name: Cytora
+review:
+  question: Does Cytora expose a public, self-serve developer portal and downloadable
+    API specifications for its digital risk processing platform?
+  answer: false
+  date: '2026-07-25'
+  reviewer: API Evangelist
+  homeMarket: United Kingdom
+  gated: true
+  specsHarvested: 0
+findings:
+  summary: |
+    Cytora publishes NO public, self-serve API surface. It is a real API-first
+    product company with a real production API — the developer-facing surface is
+    simply closed to anyone who is not a provisioned enterprise customer or
+    partner.
+
+    Cytora is a London-headquartered insurtech founded in 2012 as a University of
+    Cambridge spinout, selling a digital risk processing platform to commercial
+    insurers, wholesale brokers, MGAs and reinsurers. Applied Systems announced its
+    acquisition of Cytora on 2025-09-09. The product digitises inbound insurance
+    submissions (email, PDF, spreadsheet, broker API), maps them onto pre-built
+    line-of-business schemas, enriches them from a partner data ecosystem, evaluates
+    appetite and priority rules, and routes results downstream.
+
+    Three real technical hosts were confirmed, and all three are closed:
+
+      1. docs.cytora.com — a genuine API reference site hosted on ReadMe
+         (CNAME ssl.readmessl.com). Every path returns HTTP 302 to
+         /password?redirect=<path>, rendering "Cytora Platform Documentation /
+         Password Protected". robots.txt is `User-agent: * / Disallow: /`. Search
+         engines have indexed a handful of page titles (Quick start, Adjacent Risk,
+         Polaris ProductWriter), but no page body, endpoint, schema or spec is
+         retrievable anonymously. This is a login/password wall, NOT a self-serve
+         developer portal.
+      2. api.cytora.com — resolves via CNAME gateway.cytora-prod.com to
+         35.201.81.84 (Google Cloud load balancer). TCP 443 is open, but the TLS
+         handshake is reset by peer for anonymous clients, so no HTTP status can be
+         obtained. A real production gateway that is not publicly reachable.
+      3. auth.cytora.com — an Auth0 EU tenant (CNAME cytora-prod.eu.auth0.com).
+         This is the ONLY surface that answers anonymously with real machine-readable
+         data: both /.well-known/openid-configuration and
+         /.well-known/oauth-authorization-server return HTTP 200 JSON.
+
+    No OpenAPI, Swagger, AsyncAPI, GraphQL SDL, .proto or Postman collection is
+    publicly retrievable for Cytora. Zero specs were harvested, so no openapi/
+    directory was created. The apis[] array in apis.yml is intentionally EMPTY —
+    that is the accurate record, not a gap in the research.
+
+    The GitHub organization github.com/cytora exists (39 public repos, location
+    "London, United Kingdom", contact@cytora.com) but contains only legacy
+    engineering forks and internal tooling from 2014-2023 (clj-kafka,
+    docker-elasticsearch, geospatial-service, nagios-checks). It carries no API
+    artifacts and is not a developer surface.
+
+    The public marketing site does describe the API as Cytora's "preferred method"
+    of intake — there is a Risk Flow Academy lesson at
+    /risk-flow-academy/academy-lessons/api and a blog post titled "Insurers must
+    embrace APIs or fall behind" — but both are conceptual education about what an
+    API is, containing no endpoint, base URL, version or reference link.
+  developerPortal:
+    url: https://docs.cytora.com/
+    httpStatus: 302
+    redirectsTo: https://docs.cytora.com/password?redirect=/
+    finalStatus: 200
+    finalContent: Password wall — "Cytora Platform Documentation / Password Protected"
+    platform: ReadMe (CNAME ssl.readmessl.com)
+    robots: 'User-agent: * / Disallow: /'
+    classification: partner/customer login wall
+    selfServe: false
+    confirmedRealPortal: false
+    note: A genuine API reference site exists behind the wall; it is not publicly
+      accessible and no signup path is offered. The site funnels to /request-a-demo.
+  portalProbes:
+  - url: https://cytora.com/
+    status: 200
+  - url: https://www.cytora.com/
+    status: 200
+  - url: https://developer.cytora.com/
+    status: 000
+    note: does not resolve (no DNS record)
+  - url: https://developers.cytora.com/
+    status: 000
+    note: does not resolve (no DNS record)
+  - url: https://docs.cytora.com/
+    status: 302
+    note: redirects to password wall
+  - url: https://api.cytora.com/
+    status: 000
+    note: DNS resolves to gateway.cytora-prod.com / 35.201.81.84; TCP 443 open; TLS
+      handshake reset by peer for anonymous clients
+  - url: https://www.cytora.com/developers
+    status: 404
+  - url: https://www.cytora.com/developer
+    status: 404
+  - url: https://www.cytora.com/api
+    status: 404
+  - url: https://www.cytora.com/partners
+    status: 404
+    note: no partner index at this path; individual partner pages exist under
+      /partners/<slug> and are data-vendor marketing pages, not integration docs
+  - url: https://www.cytora.com/integrations
+    status: 404
+  - url: https://cytora.readme.io/
+    status: 404
+  - url: https://platform.cytora.com/
+    status: 000
+  - url: https://app.cytora.com/
+    status: 000
+  - url: https://console.cytora.com/
+    status: 000
+  - url: https://status.cytora.com/
+    status: 200
+    note: real public status page
+  - url: https://trust.cytora.com/
+    status: 200
+    note: Cytora Trust Center
+  specProbes:
+  - url: https://docs.cytora.com/openapi.json
+    status: 302
+    result: password wall — no spec
+  - url: https://docs.cytora.com/openapi.yaml
+    status: 302
+    result: password wall — no spec
+  - url: https://docs.cytora.com/swagger.json
+    status: 302
+    result: password wall — no spec
+  - url: https://docs.cytora.com/api-docs
+    status: 302
+    result: password wall — no spec
+  - url: https://docs.cytora.com/spec
+    status: 302
+    result: password wall — no spec
+  - url: https://docs.cytora.com/cytora-platform/openapi.json
+    status: 302
+    result: password wall — no spec
+  - url: https://docs.cytora.com/sitemap.xml
+    status: 302
+    result: password wall — sitemap not retrievable
+  - url: https://cytora.com/openapi.json
+    status: 404
+    result: no spec
+  - url: https://api.cytora.com/openapi.json
+    status: 000
+    result: TLS reset — no spec
+  acordPosture:
+    phrase: no ACORD reference found — ships proprietary per-line-of-business schemas
+      instead
+    searched:
+    - ACORD
+    - AL3
+    - ACORD XML
+    - NGDS
+    - IVANS
+    - Applied Epic
+    - Vertafore
+    - AMS360
+    pagesSearched:
+    - https://cytora.com/
+    - https://cytora.com/digital-risk-processing
+    - https://cytora.com/digital-risk-processing/pre-built-schemas
+    - https://cytora.com/digital-risk-processing/data-ecosystem
+    - https://cytora.com/digital-risk-processing/pricing-integration
+    - https://cytora.com/schemas/property
+    - https://cytora.com/schemas/cyber-us
+    - https://cytora.com/risk-flow-academy/academy-lessons/api
+    - https://cytora.com/about-us
+    hits: 0
+    detail: |
+      Zero occurrences of ACORD, AL3, ACORD XML, NGDS, IVANS, Applied Epic,
+      Vertafore or AMS360 across every public Cytora page inspected. Cytora does
+      not position itself as ACORD-aligned anywhere in public.
+
+      Instead of ACORD schemas, Cytora publishes its OWN pre-built line-of-business
+      schemas as public marketing pages under /schemas/ — commercial-combined,
+      construction, cyber-eu, cyber-us, directors-officers, errors-omissions,
+      fleet, general-liability, management-liability, professional-liability and
+      property. These pages list human-readable field names and descriptions
+      (Insured Street Address, Insured City, Insured Zip Code, Statement of Values,
+      Loss History) but publish no machine-readable schema file, no JSON Schema and
+      no download.
+
+      Context, not posture: Cytora's acquirer Applied Systems is a US agency
+      management system vendor (Applied Epic) operating deep in the ACORD/IVANS
+      download world, and Duck Creek Technologies appears as a named system-provider
+      partner in Cytora's data ecosystem. Neither fact is an ACORD claim BY Cytora,
+      and neither was found stated as one.
+  insuranceVerbs:
+    quote:
+      exposed: false
+      note: no public quote/rating API; quote digitisation is described as a
+        submission-intake use case only
+    bind:
+      exposed: false
+    issue:
+      exposed: false
+      note: policy digitisation is named as a use case; no public policy issuance API
+    fnol:
+      exposed: false
+      note: FNOL and post-FNOL claim submission intake is a prominently marketed
+        capability with out-of-the-box claim schemas, but it is delivered inside the
+        platform to contracted customers, not via any public API
+    audience: partner-only / enterprise customer — not consumer-facing and not
+      openly agent-facing
+    summary: Cytora sits UPSTREAM of quote/bind/issue. Its verb is intake and
+      digitisation of the submission, then routing into the customer's own
+      underwriting, policy admin and claims systems. None of the four canonical
+      insurance verbs is exposed on a public API.
+  authModel:
+    scheme: OAuth 2.0 / OpenID Connect via Auth0 (EU tenant)
+    issuer: https://auth.cytora.com/
+    discovery: https://auth.cytora.com/.well-known/openid-configuration
+    discoveryStatus: 200
+    oauthAuthorizationServerStatus: 200
+    jwksStatus: 200
+    tenant: cytora-prod.eu.auth0.com
+    grantTypesSupported:
+    - client_credentials
+    - authorization_code
+    - refresh_token
+    - password
+    - implicit
+    - urn:ietf:params:oauth:grant-type:device_code
+    - urn:ietf:params:oauth:grant-type:token-exchange
+    - urn:ietf:params:oauth:grant-type:jwt-bearer
+    tokenEndpointAuthMethods:
+    - client_secret_basic
+    - client_secret_post
+    - private_key_jwt
+    - none
+    pkce:
+    - S256
+    - plain
+    dpopSigningAlgs:
+    - ES256
+    scopesSupported:
+    - openid
+    - profile
+    - offline_access
+    - name
+    - given_name
+    - family_name
+    - nickname
+    - email
+    - email_verified
+    - picture
+    - created_at
+    - identities
+    - phone
+    - address
+    productScopesPublished: false
+    note: |
+      Only stock Auth0/OIDC identity scopes are advertised. No product-level or
+      resource-level scopes (risk:read, submission:write, claim:create or similar)
+      are published anonymously. client_credentials being enabled is consistent with
+      machine-to-machine partner integrations being provisioned per customer.
+      Registration at /oidc/register is Auth0 dynamic client registration, not a
+      developer signup. Client credentials cannot be obtained without a contract.
+  transports:
+  - protocol: REST
+    scheme: https
+    baseURL: https://api.cytora.com
+    documented: false
+    publiclyReachable: false
+    note: Host resolves to a Google Cloud load balancer via
+      gateway.cytora-prod.com; TCP 443 accepts, TLS handshake is reset for anonymous
+      clients. Existence confirmed by DNS and TCP; no endpoint confirmed.
+  - protocol: OIDC / OAuth 2.0
+    scheme: https
+    baseURL: https://auth.cytora.com
+    documented: true
+    publiclyReachable: true
+    note: Only anonymously reachable machine-readable surface Cytora publishes.
+  - protocol: GraphQL
+    documented: false
+    note: No /graphql surface found on any resolving Cytora host; nothing to
+      introspect.
+  - protocol: gRPC
+    documented: false
+    note: No published .proto found.
+  - protocol: WebSocket
+    scheme: wss
+    documented: false
+    note: No WebSocket endpoint documented publicly.
+  webhooks:
+    published: false
+    asyncapi: false
+    eventCatalog: false
+    note: No public webhook documentation, event catalog or AsyncAPI document was
+      found. Given the platform routes digitised risks into downstream systems, an
+      internal event/callback mechanism almost certainly exists, but nothing is
+      published — record the absence, not the inference.
+  postman:
+    publicCollection: false
+    publicWorkspace: false
+    note: No Cytora collection or workspace surfaced on the Postman public network.
+  sdks:
+    published: false
+    note: No public SDK, client library or CLI. The github.com/cytora org holds only
+      legacy engineering forks (last meaningful push 2023) and no API artifacts.
+  githubOrganization:
+    url: https://github.com/cytora
+    publicRepos: 39
+    location: London, United Kingdom
+    apiArtifacts: none
+  certifications:
+  - ISO 27001
+  - ISO 42001
+  corporate:
+    hq: London, United Kingdom
+    founded: 2012
+    origin: University of Cambridge spinout
+    acquirer: Applied Systems
+    acquisitionAnnounced: '2025-09-09'
+    acquisitionValue: reported $300M+
+    segmentsServed:
+    - commercial insurers
+    - wholesale brokers
+    - MGAs
+    - reinsurers
+    namedCustomers:
+    - Zurich
+    - Chubb
+    - Markel
+    - Beazley
+    - Travelers
+    - Tokio Marine
+    - Ecclesiastical
+    - Arch Insurance
+    - Everest
+    - TransRe
+    - James River
+    - Convex
+    - HDI Global
+  marketContext: |
+    The United Kingdom has the FCA and PRA but no open-insurance obligation; the
+    FCA's Open Finance work remains consultation rather than rule. Nothing compels
+    a UK insurtech to publish an API. Cytora's closed posture is therefore the
+    market-normal outcome, not an outlier — and it is notable precisely because
+    Cytora is one of the most genuinely API-centric products in UK commercial
+    insurance while publishing none of it.
+  conclusion: |
+    STUB — identity captured, zero public APIs listed. Cytora runs real APIs behind
+    a real gateway with real OAuth 2.0 infrastructure, and documents them properly
+    on ReadMe — all of it password-gated to contracted enterprise customers and
+    partners. Everything a developer could actually use requires a sales
+    conversation via /request-a-demo. apis[] is empty because that is the truth.

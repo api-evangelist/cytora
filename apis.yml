@@ -1,0 +1,71 @@
+aid: cytora
+url: https://raw.githubusercontent.com/api-evangelist/cytora/refs/heads/main/apis.yml
+name: Cytora
+kind: company
+description: >-
+  Cytora is a London-headquartered insurtech, founded in 2012 as a University
+  of Cambridge spinout, that sells a digital risk processing platform to commercial
+  insurers, wholesale brokers, MGAs and reinsurers. Its software ingests inbound
+  submissions arriving as email, PDF, spreadsheet and broker API payloads, digitises
+  them against pre-built line-of-business schemas (property, commercial combined,
+  construction, cyber, fleet, general liability, professional liability, D&O, E&O,
+  management liability), augments them from a data ecosystem of roughly sixty
+  third-party risk-data partners, evaluates them against appetite and priority
+  rules, and routes them into downstream underwriting and claims systems. Use cases
+  span new business, renewals, mid-term adjustments, claims FNOL and post-FNOL
+  intake, and facultative and treaty reinsurance submissions. Named customers
+  include Zurich, Chubb, Markel, Beazley, Travelers, Tokio Marine, Ecclesiastical,
+  Arch, Everest and TransRe. Applied Systems acquired Cytora in September 2025.
+  Its API posture is partner-gated and enterprise-only: Cytora runs a real
+  production API gateway at api.cytora.com and a real ReadMe-hosted API reference
+  at docs.cytora.com, but the documentation site is entirely password-protected
+  (HTTP 302 to a password wall, robots.txt Disallow) and the gateway resets
+  anonymous TLS connections. There is no self-serve developer signup, no public
+  OpenAPI, no public Postman collection and no published webhook or event catalog.
+  The only externally verifiable technical surface is the Auth0 OIDC discovery
+  document at auth.cytora.com, which confirms OAuth 2.0 client-credentials and
+  authorization-code flows for provisioned partner integrations. The United Kingdom
+  home market has no open-insurance mandate, so nothing compels Cytora to expose
+  any of this publicly.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Insurance
+- United Kingdom
+- Insurtech
+- Commercial Insurance
+- Underwriting
+- Claims
+- Risk Data
+- Property and Casualty
+- Reinsurance
+- Broker
+- Submission Intake
+- Document AI
+created: '2026-07-25'
+modified: '2026-07-25'
+specificationVersion: '0.19'
+apis: []
+common:
+- type: Website
+  url: https://cytora.com/
+- type: Documentation
+  url: https://docs.cytora.com/
+- type: Blog
+  url: https://cytora.com/risk-flow-center/blog
+- type: StatusPage
+  url: https://status.cytora.com/
+- type: TrustCenter
+  url: https://trust.cytora.com/
+- type: Authentication
+  url: https://auth.cytora.com/.well-known/openid-configuration
+- type: GitHubOrganization
+  url: https://github.com/cytora
+- type: LinkedIn
+  url: https://www.linkedin.com/company/cytora
+- type: PrivacyPolicy
+  url: https://cytora.com/privacy-policy
+- type: Support
+  url: https://cytora.com/about-us/contact-us
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
