@@ -38,6 +38,19 @@ tags:
 - Risk Data
 - Property and Casualty
 - Reinsurance
+- Brokers
+- Submission Intake
+- Document AI
+tags_raw:
+- Insurance
+- United Kingdom
+- Insurtech
+- Commercial Insurance
+- Underwriting
+- Claims
+- Risk Data
+- Property and Casualty
+- Reinsurance
 - Broker
 - Submission Intake
 - Document AI
@@ -90,6 +103,10 @@ apis:
   humanURL: https://auth.cytora.com/.well-known/openid-configuration
   baseURL: https://auth.cytora.com
   tags:
+  - Authentication
+  - OpenID Connect
+  - Identity
+  tags_raw:
   - OAuth
   - OpenID Connect
   - Identity
