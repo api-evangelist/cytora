@@ -1,4 +1,4 @@
-# Cytora (cytora)
+# Cytora
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,83 +64,108 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Cytora is a London-headquartered insurtech, founded in 2012 as a University of Cambridge spinout, that sells a digital risk processing platform to commercial insurers, wholesale brokers, MGAs and reinsurers. Its software ingests inbound submissions arriving as email, PDF, spreadsheet and broker API payloads, digitises them against pre-built line-of-business schemas, augments them from a data ecosystem of roughly sixty third-party risk-data partners, evaluates them against appetite and priority rules, and routes them into downstream underwriting and claims systems. Applied Systems acquired Cytora in September 2025.
+Cytora is a London-headquartered insurtech, founded in 2012 as a University of Cambridge spinout, that sells a digital risk processing platform to commercial insurers, wholesale brokers, MGAs and reinsurers. Its software ingests inbound submissions arriving as email, PDF, spreadsheet and broker API payloads, digitises them against pre-built line-of-business schemas (property, commercial combined, construction, cyber, fleet, general liability, professional liability, D&O, E&O, management liability), augments them from a data ecosystem of roughly sixty third-party risk-data partners, evaluates them against appetite and priority rules, and routes them into downstream underwriting and claims systems. Use cases span new business, renewals, mid-term adjustments, claims FNOL and post-FNOL intake, and facultative and treaty reinsurance submissions. Named customers include Zurich, Chubb, Markel, Beazley, Travelers, Tokio Marine, Ecclesiastical, Arch, Everest and TransRe. Applied Systems acquired Cytora in September 2025. Its API posture is partner-gated and enterprise-only: Cytora runs a real production API gateway at api.cytora.com and a real ReadMe-hosted API reference at docs.cytora.com, but the documentation site is entirely password-protected (HTTP 302 to a password wall, robots.txt Disallow) and the gateway resets anonymous TLS connections. There is no self-serve developer signup, no public OpenAPI, no public Postman collection and no published webhook or event catalog. The only externally verifiable technical surface is the Auth0 OIDC discovery document at auth.cytora.com, which confirms OAuth 2.0 client-credentials and authorization-code flows for provisioned partner integrations. The United Kingdom home market has no open-insurance mandate, so nothing compels Cytora to expose any of this publicly.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/cytora/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/cytora/refs/heads/main/apis.yml)
+**Areas:** Insurance · United Kingdom · Insurtech · Commercial Insurance · Underwriting · Claims · Risk Data · Property and Casualty · Reinsurance · Brokerage · Submission Intake · Document AI
 
-## Tags
+## Cytora on APIs.io
 
-- Insurance
-- United Kingdom
-- Insurtech
-- Commercial Insurance
-- Underwriting
-- Claims
-- Risk Data
-- Property and Casualty
-- Reinsurance
-- Broker
-- Submission Intake
-- Document AI
+Everything profiled for Cytora is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/cytora/](https://apis.io/providers/cytora/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (2)
 
-- **Created:** 2026-07-25
-- **Modified:** 2026-07-25
+- [Cytora Platform API](https://apis.io/apis/cytora/cytora-platform-api/) — Cytora's production REST API for digital risk processing — the "preferred method" of submission intake described in its own Risk Flow Academy. The gateway…
+- [Cytora Identity (Auth0 OIDC)](https://apis.io/apis/cytora/cytora-identity-auth0-oidc/) — The OAuth 2.0 / OpenID Connect authorization server that fronts every Cytora integration, running on an Auth0 EU tenant (cytora-prod.eu.auth0.com). This is…
 
-## APIs
+### Published properties
 
-**None listed — and that is the accurate record.**
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Cytora is a genuinely API-centric product whose entire developer surface is closed to the public. No API is listed in `apis.yml` because none can be reached, read or signed up for without a contract.
+#### MCP servers (1)
 
-What was confirmed:
+Model Context Protocol servers that expose the API to agents.
 
-| Surface | Host | Result |
-| --- | --- | --- |
-| API reference | `https://docs.cytora.com/` | HTTP 302 → `/password?redirect=/` — "Cytora Platform Documentation / Password Protected". ReadMe-hosted, `robots.txt: Disallow: /`. A real reference site behind a password wall, not a self-serve developer portal. |
-| API gateway | `https://api.cytora.com/` | Resolves via `gateway.cytora-prod.com` to a Google Cloud load balancer. TCP 443 open, TLS handshake reset for anonymous clients. Real gateway, not publicly reachable. |
-| Authorization server | `https://auth.cytora.com/` | HTTP 200. Auth0 EU tenant (`cytora-prod.eu.auth0.com`) serving a full OIDC discovery document — the only anonymously readable machine-readable artifact Cytora publishes. |
-| Status page | `https://status.cytora.com/` | HTTP 200 |
-| Trust center | `https://trust.cytora.com/` | HTTP 200 |
+- [Moved to /providers/cytora/](https://apis.io/servers/cytora/cytora/)
 
-`developer.cytora.com`, `developers.cytora.com`, `platform.cytora.com`, `app.cytora.com` and `console.cytora.com` do not resolve. `cytora.com/developers`, `/developer`, `/api`, `/partners` and `/integrations` all return 404.
+#### Security (3)
 
-**OpenAPI specifications harvested: 0.** Every spec path probed on `docs.cytora.com` (`/openapi.json`, `/openapi.yaml`, `/swagger.json`, `/api-docs`, `/spec`, `/cytora-platform/openapi.json`, `/sitemap.xml`) returns the password wall. There is no `openapi/` directory in this repo because nothing real was found.
+Authentication, trust centre, and vulnerability disclosure.
 
-## ACORD Posture
+- [Cytora Authentication](https://apis.io/security/cytora/cytora-authentication/)
+- [Cytora Domain Security](https://apis.io/security/cytora/cytora-domain-security/)
+- [Cytora Trust Center](https://apis.io/security/cytora/cytora-trust-center/)
 
-**No ACORD reference found — Cytora ships proprietary per-line-of-business schemas instead.**
+#### OAuth scopes (1)
 
-Zero occurrences of ACORD, AL3, ACORD XML, NGDS, IVANS, Applied Epic, Vertafore or AMS360 across every public Cytora page inspected. In place of ACORD, Cytora publishes its own pre-built schemas as marketing pages under `/schemas/` — commercial-combined, construction, cyber-eu, cyber-us, directors-officers, errors-omissions, fleet, general-liability, management-liability, professional-liability and property. Those pages list human-readable field names and descriptions but publish no machine-readable schema, JSON Schema or download.
+The permissions the API asks for.
 
-For context only: Cytora's acquirer Applied Systems operates in the ACORD/IVANS agency-download world via Applied Epic, and Duck Creek Technologies appears as a named system-provider partner in Cytora's data ecosystem. Neither is an ACORD claim made by Cytora.
+- [Cytora Scopes](https://apis.io/scopes/cytora/cytora-scopes/)
 
-## Quote / Bind / Issue / FNOL
+## Where to find this API
 
-None of the four canonical insurance verbs is exposed on a public API. Cytora sits **upstream** of them: its verb is intake and digitisation of the submission, then routing into the customer's own underwriting, policy administration and claims systems. FNOL and post-FNOL claim-submission intake is a prominently marketed capability with out-of-the-box claim schemas, but it is delivered inside the platform to contracted customers. The audience is partner and enterprise customer — not consumer, not openly agent-facing.
-
-## Auth Model
-
-OAuth 2.0 / OpenID Connect via an Auth0 EU tenant at `https://auth.cytora.com/`. Discovery, OAuth authorization-server metadata and JWKS all return HTTP 200 anonymously. Grants advertised include `client_credentials` (consistent with per-customer machine-to-machine partner integrations) and `authorization_code`, with PKCE `S256`, `private_key_jwt` client authentication and DPoP `ES256`. Only stock OIDC identity scopes are advertised — no product or resource scopes are published. Credentials cannot be obtained without a contract.
-
-## Webhooks, Events, SDKs, Postman
-
-No public webhook documentation, event catalog or AsyncAPI document. No public Postman collection or workspace. No SDK, client library or CLI. The `github.com/cytora` organization holds 39 public repos but they are legacy engineering forks and internal tooling from 2014-2023 with no API artifacts.
-
-## Market Context
-
-The United Kingdom has the FCA and PRA but no open-insurance obligation; the FCA's Open Finance work remains consultation rather than rule. Nothing compels a UK insurtech to publish an API. Cytora's closed posture is the market-normal outcome — notable mainly because Cytora is one of the most genuinely API-centric products in UK commercial insurance while publishing none of it.
-
-## Links
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://cytora.com/)
-- [Documentation (password-gated)](https://docs.cytora.com/)
+- [Documentation](https://docs.cytora.com/)
+- [Support](https://cytora.com/about-us/contact-us)
 - [Blog](https://cytora.com/risk-flow-center/blog)
-- [Status Page](https://status.cytora.com/)
-- [Trust Center](https://trust.cytora.com/)
-- [Authentication (OIDC discovery)](https://auth.cytora.com/.well-known/openid-configuration)
-- [GitHub Organization](https://github.com/cytora)
-- [LinkedIn](https://www.linkedin.com/company/cytora)
-- [Privacy Policy](https://cytora.com/privacy-policy)
-- [Contact](https://cytora.com/about-us/contact-us)
+- [Compliance](https://trust.cytora.com/)
+- [Trust centre](https://trust.cytora.com/)
+- [Privacy policy](https://cytora.com/privacy-policy)
+- [GitHub](https://github.com/cytora)
+- [Status](https://status.cytora.com/)
+
+## API Evangelist rating
+
+**Kin Score 25.0** — emerging · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 32.9 |
+
+**Agent readiness 23.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 37.7** — Insurance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/cytora/](https://apis.io/providers/cytora/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Cytora: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/cytora/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
